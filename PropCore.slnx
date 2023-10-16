@@ -1,0 +1,15 @@
+<Solution>
+  <Folder Name="/src/">
+    <Project Path="src/PropCore.Api/PropCore.Api.csproj" />
+    <Project Path="src/PropCore.Application/PropCore.Application.csproj" />
+    <Project Path="src/PropCore.Domain/PropCore.Domain.csproj" />
+    <Project Path="src/PropCore.Infrastructure/PropCore.Infrastructure.csproj" />
+    <Project Path="src/PropCore.Worker/PropCore.Worker.csproj" />
+  </Folder>
+  <Folder Name="/tests/">
+    <Project Path="tests/PropCore.Api.Tests/PropCore.Api.Tests.csproj" />
+    <Project Path="tests/PropCore.Application.Tests/PropCore.Application.Tests.csproj" />
+    <Project Path="tests/PropCore.Domain.Tests/PropCore.Domain.Tests.csproj" />
+    <Project Path="tests/PropCore.Infrastructure.Tests/PropCore.Infrastructure.Tests.csproj" />
+  </Folder>
+</Solution>
