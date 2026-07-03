@@ -4,26 +4,26 @@ Enterprise-grade multi-tenant property management platform built with .NET 10, C
 
 ## Overview
 
-PropCore manages the full lifecycle of rental properties ΓÇö from onboarding organizations and listing units, through tenant leasing and rent collection, to maintenance tracking and inspections. It is designed as a scalable SaaS backend with reliable messaging and multi-tenancy.
+PropCore manages the full lifecycle of rental properties – from onboarding organizations and listing units, through tenant leasing and rent collection, to maintenance tracking and inspections. It is designed as a scalable SaaS backend with reliable messaging and multi-tenancy.
 
 ## Architecture
 
 ```
-ΓöîΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÉ
-Γöé                    Api / Worker                      Γöé
-Γö£ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöñ
-Γöé                   Application                        Γöé
-Γöé  (CQRS ┬╖ MediatR ┬╖ FluentValidation ┬╖ Behaviors)    Γöé
-Γö£ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöñ
-Γöé                     Domain                           Γöé
-Γöé  (Entities ┬╖ Value Objects ┬╖ Aggregates ┬╖ Events)    Γöé
-ΓööΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÿ
-                          Γöé
-               ΓöîΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓö┤ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÉ
-               Γöé   Infrastructure    Γöé
-               Γöé  EF Core ┬╖ Redis    Γöé
-               Γöé  MassTransit ┬╖ MQ   Γöé
-               ΓööΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÿ
+┌─────────────────────────────────────────────────────────┐
+│                    Api / Worker                          │
+├─────────────────────────────────────────────────────────┤
+│                   Application                            │
+│  (CQRS · MediatR · FluentValidation · Behaviors)        │
+├─────────────────────────────────────────────────────────┤
+│                     Domain                               │
+│  (Entities · Value Objects · Aggregates · Events)        │
+└─────────────────────────────────────────────────────────┘
+                          │
+                ┌─────────┴─────────┐
+                │   Infrastructure   │
+                │  EF Core · Redis    │
+                │  MassTransit · MQ   │
+                └─────────────────────┘
 ```
 
 | Layer | Responsibility |
@@ -31,8 +31,8 @@ PropCore manages the full lifecycle of rental properties ΓÇö from onboarding 
 | **Domain** | Entities, value objects, aggregates, domain events, business rules. Zero external dependencies. |
 | **Application** | CQRS contracts (`ICommand`, `IQuery`), MediatR handlers, FluentValidation validators, cross-cutting behaviors (validation, logging, domain event dispatch). |
 | **Infrastructure** | EF Core persistence (SQL Server), Redis caching, MassTransit + RabbitMQ messaging, ASP.NET Core Identity, file storage, transactional outbox. |
-| **Api** | ASP.NET Core Web API ΓÇö Swagger, health checks, global exception handler, correlation ID middleware. |
-| **Worker** | .NET Generic Host background service ΓÇö outbox processor for reliable domain event publishing. |
+| **Api** | ASP.NET Core Web API – Swagger, health checks, global exception handler, correlation ID middleware. |
+| **Worker** | .NET Generic Host background service – outbox processor for reliable domain event publishing. |
 
 ## Domain Model
 
@@ -65,13 +65,13 @@ PropCore manages the full lifecycle of rental properties ΓÇö from onboarding 
 
 ## Patterns
 
-- **Domain-Driven Design** ΓÇö Aggregates, value objects, factory methods, domain events, state machines, domain exceptions
-- **CQRS** ΓÇö Separate command and query models with `Result<T>` monad
-- **Transactional Outbox** ΓÇö Domain events persisted in `SaveChangesAsync`, processed by the Worker and published to RabbitMQ
-- **Repository & Unit of Work** ΓÇö Generic abstractions over EF Core
-- **Multi-tenancy** ΓÇö Organization-scoped data across all major entities
-- **Correlation ID** ΓÇö Request tracing across API and worker
-- **Health Checks** ΓÇö SQL Server, Redis, and RabbitMQ connectivity
+- **Domain-Driven Design** – Aggregates, value objects, factory methods, domain events, state machines, domain exceptions
+- **CQRS** – Separate command and query models with `Result<T>` monad
+- **Transactional Outbox** – Domain events persisted in `SaveChangesAsync`, processed by the Worker and published to RabbitMQ
+- **Repository & Unit of Work** – Generic abstractions over EF Core
+- **Multi-tenancy** – Organization-scoped data across all major entities
+- **Correlation ID** – Request tracing across API and worker
+- **Health Checks** – SQL Server, Redis, and RabbitMQ connectivity
 
 ## Getting Started
 
@@ -125,17 +125,17 @@ dotnet test
 
 ```
 backend/
-Γö£ΓöÇΓöÇ src/
-Γöé   Γö£ΓöÇΓöÇ PropCore.Domain/            # Entities, value objects, enums, domain events
-Γöé   Γö£ΓöÇΓöÇ PropCore.Application/       # CQRS contracts, handlers, validators, abstractions
-Γöé   Γö£ΓöÇΓöÇ PropCore.Infrastructure/    # EF Core, Identity, Redis, MassTransit, storage
-Γöé   Γö£ΓöÇΓöÇ PropCore.Api/               # ASP.NET Core Web API
-Γöé   ΓööΓöÇΓöÇ PropCore.Worker/            # Background outbox processor
-ΓööΓöÇΓöÇ tests/
-    Γö£ΓöÇΓöÇ PropCore.Domain.Tests/
-    Γö£ΓöÇΓöÇ PropCore.Application.Tests/
-    Γö£ΓöÇΓöÇ PropCore.Infrastructure.Tests/
-    ΓööΓöÇΓöÇ PropCore.Api.Tests/
+├── src/
+│   ├── PropCore.Domain/            # Entities, value objects, enums, domain events
+│   ├── PropCore.Application/       # CQRS contracts, handlers, validators, abstractions
+│   ├── PropCore.Infrastructure/    # EF Core, Identity, Redis, MassTransit, storage
+│   ├── PropCore.Api/               # ASP.NET Core Web API
+│   └── PropCore.Worker/            # Background outbox processor
+└── tests/
+    ├── PropCore.Domain.Tests/
+    ├── PropCore.Application.Tests/
+    ├── PropCore.Infrastructure.Tests/
+    └── PropCore.Api.Tests/
 ```
 
 ## Roadmap
